@@ -7,12 +7,36 @@
     <title><%= title %></title>
   </head>
   <body>
-    <section>
-      <%= yield %> 
-    </section>
-    <footer>
-      powered by <a href="http://cloudhead.io/toto">toto</a>
-    </footer>
+    <h1>
+      <a id="title_link" href="/">Túlio Ornelas => me</a>
+    </h1>
+    
+    <div id="container">
+      
+      <div id="little_about">
+        <ul id="menu">
+          <li>
+            <a class="menu_icon sobre" href="#"></a>
+            <a href="#">Sobre</a>
+          </li>
+          <li>
+            <a class="menu_icon twitter" href="http://twitter.com/tulios" target="blank"></a>
+            <a href="http://twitter.com/tulios" target="blank">Twitter</a>
+          </li>
+          <li>
+            <a class="menu_icon github" href="http://github.com/tulios" target="blank"></a>
+            <a href="http://github.com/tulios" target="blank">GitHub</a>
+          </li>
+        </ul>
+      </div>
+      <div id="sections">
+        <section>
+          <%= yield %> 
+        </section>
+      </div>
+      
+    </div>
+    <div class="clear"></div>
   </body>
 </html>
 

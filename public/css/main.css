@@ -1,13 +1,15 @@
 html { margin: 20px }
+body img {
+	border: none;
+}
 body {
-  margin: 0 auto;
   font-family: 'Baskerville', Georgia, Times, serif;
   font-size: 20px;
   line-height: 30px;
-  padding: 15px;
-  width: 720px;
-
+  padding: 0px 15px;
+  width: 100%;
 }
+
 header, footer, section, article {
 	display: block;
 }
@@ -30,7 +32,8 @@ header, footer, section, article {
   font-style: italic;
   float: right;
   line-height: 43px;
-  margin-right: 30px;
+  margin-right: 20px;
+	margin-top: -3px;
 }
 a {
   color: #b83000;
@@ -83,7 +86,7 @@ body > header {
 	line-height: 180px;
 	margin-bottom: 20px;
 }
-h1, h2, h3, h4 {
+h2, h3, h4 {
   display: inline;
   margin: 0;
   font-weight: 600;
@@ -108,3 +111,81 @@ body > footer {
   font-size: 18px;
   color: #888;
 }
+
+h1 {
+	font: 300 2.4em "Museo", "Cochin", Georgia, "Times New Roman", serif;
+	border-left: 30px solid #B3C1CD;
+	padding-left: 10px;
+	margin-left: -40px;
+	text-shadow: rgba(28, 73, 115, .7) 0 0 4px;
+	clear: both;
+}
+
+#title_link {
+	text-decoration: none;
+}
+
+#little_about {
+	float: left;
+	width: 20%;
+	margin-left: -10px;
+}
+
+#sections {
+	float: left;
+	width: 80%;
+}
+
+.menu_icon {
+	background: url("../images/icons.png") no-repeat top left;
+	margin-right: 15px;
+	padding: 4px 0px 6px 32px;
+}
+
+.sobre {
+	background-position: -240px -864px;
+}
+
+.twitter {
+	background-position: -48px 0;
+}
+
+.github {
+	background-position: -240px -480px;
+}
+
+#menu {
+	margin: 0px;
+}
+
+#menu li {
+	margin-left: -40px;
+	padding: 0px 10px 20px 0px;
+	font-family: Georgia;
+}
+
+#container {
+}
+
+.clear {
+	clear: both;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
