@@ -1,10 +1,6 @@
 xml.instruct!
 xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
   
-  xml.url { xml.loc "http://twitter.com/tulios" }
-  xml.url { xml.loc "http://github.com/tulios" }
-  xml.url { xml.loc "http://feeds.feedburner.com/tuliome" }
-  
   ["/", "/about", "/archives"].each do |page|
     xml.url { xml.loc @config[:url] + "#{page}" }
   end
