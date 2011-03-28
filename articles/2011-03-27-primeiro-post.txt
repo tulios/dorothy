@@ -2,5 +2,20 @@
 title: Primeiro post
 date: 27/03/2011
 
-Só testando o sistema e a infraestrutura.
+Só testando o sistema e a infraestrutura.  
 o/
+~
+
+Testando highlight de código:
+
+<pre>
+  <code class="ruby">
+  
+    class MinhaClasse
+      def meu_metodo
+        puts 'meu método'
+      end
+    end
+  
+  </code>
+</pre>

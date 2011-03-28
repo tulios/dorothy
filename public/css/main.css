@@ -74,7 +74,7 @@ body > header > h1 {
   margin-bottom: 10px;
 }
 .post p {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .post .more {
   margin-top: -10px;
@@ -102,9 +102,13 @@ ul, li {
 }
 code {
   font-family: 'Anonymous Pro', 'Bitstream Vera Sans', 'Monaco', Courier, mono;
+	font-size: 14px;
 }
-pre {
-  padding: 20px;
+pre {          
+	margin: 0px;
+  padding: 0px;
+	font-size: 14px;
+	line-height: 20px;
 }
 blockquote {
   font-style: italic;
@@ -208,6 +212,10 @@ h1, h2 {
 	margin-top: 10px;
 }
 
+.content p {
+	padding-bottom: 15px;
+}
+
 .archive_list {
 	margin-left: -35px;
 }
@@ -221,10 +229,11 @@ h1, h2 {
 }
 
 .tweet_post {
-	margin-left: 20px;
 }
 
-
+.comments {
+	margin-top: 10px;
+}
 
 
 

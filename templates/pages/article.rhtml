@@ -1,3 +1,5 @@
+<script src="/js/article.js"></script>
+
 <article class="post">
   <header>
     <h2><%= title %></h2>
@@ -9,20 +11,21 @@
         <b><%= author %></b>
       <% end %>
        em <b><%= date %></b>
-       <span class="tweet_post">
-         <a href="http://twitter.com/share" 
-            class="twitter-share-button" 
-            data-count="none" 
-            data-via="tulios">Tweet</a>
-       </span>
-       <span class="facebook_like">
-       </span>
     </p>
   </header>
 
   <section class="content">
     <%= body %>
   </section>
+  
+  <span class="tweet_post">
+    <a href="http://twitter.com/share" 
+       class="twitter-share-button" 
+       data-count="none" 
+       data-via="tulios">Tweet</a>
+  </span>
+  <span class="facebook_like">
+  </span>
 
   <section class="comments">
     <% if @config[:disqus] %>

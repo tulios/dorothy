@@ -1,0 +1,59 @@
+--- 
+title: "Proxy Machine, uma implementa\xC3\xA7\xC3\xA3o interessante do padr\xC3\xA3o proxy/delegate"
+date: 28/03/2011
+
+No final do ano passado comecei a criar uma _rubygem_ que implementasse o padrão **proxy/delegate**. O interessante de implementar isso em ruby é a possibilidade de reabrir as classes em tempo de execução e alterar seu comportamento.
+~
+
+De acordo com a __wikipedia__ um [proxy][] é:
+> ... a class functioning as an interface to something else ...
+
+O resultado dessa brincadeira foi a gema [proxy_machine][] que na versão atual (0.0.6) permite a criação de proxies a partir de um objeto ou configuração em nível de classe, de modo que qualquer objeto criado a partir dessa classe resulte em um proxy.  
+
+Vamos analisar um exemplo mais concreto, digamos que o nosso sistema tenha a necessidade de realizar log de cada chamada de método em um determinado objeto.  
+<pre>
+  <code class="ruby">
+    class MinhaClasse
+    end
+    
+    obj = MinhaClasse.new
+    obj.to_s # => deveria realizar o log: 2011-03-28 19:00 - to_s: args([])
+  </code>
+</pre>
+Utilizando o **proxy_machine** poderíamos criar um proxy para esse objeto da seguinte forma:
+<pre>
+  <code class="ruby">
+    meu_proxy = proxy_for obj, :before_all => lambda {|obj, method, args|
+      time = Time.now.strftime("%Y-%m-%d %H:%M")
+      obj.info "#{time} - #{method}: args(#{args})"
+    }
+                                
+    # Essa chamada já irá gerar: 2011-03-28 19:10 - proxied?: args([])
+    meu_proxy.proxied? # => true
+  </code>
+</pre>
+Uma outra forma seria configurar essa criação na definição da classe:
+<pre>
+  <code class="ruby">
+    class MinhaClasse
+      auto_proxy do
+        before_all do |obj, method, args|
+          time = Time.now.strftime("%Y-%m-%d %H:%M")
+          obj.info "#{time} - #{method}: args(#{args})"
+        end
+      end
+    end
+    
+    # Dessa forma uma instância de MinhaClasse irá produzir um proxy
+    obj = MinhaClasse.new
+    obj.proxied? # => true
+  </code>
+</pre>
+O **README** da gema possui toda a documentação necessária e explica cada recurso em detalhes. As próximas versões devem incluir filtros para a instanciação do objeto (antes/depois) e uma api melhorada, seguindo a linha utilizada no **auto_proxy**. Essa gem foi utilizada como base para criação de alguns recursos da [proxeze][], o desenvolvedor (_Jason Rogers_) entrou em contato e discutimos bastante sobre a idéia como um todo.
+
+Por enquanto é isso, conforme as versões forem saindo vou deixando uma review por aqui.  
+o/
+
+  [proxy]: http://en.wikipedia.org/wiki/Proxy_pattern  "proxy"
+  [proxy_machine]: https://github.com/tulios/proxy_machine "proxy_machine"
+  [proxeze]: https://github.com/jacaetevha/proxeze "proxeze"
