@@ -12,7 +12,7 @@ jQuery.fn.loadRepositories = function(username) {
     var list = $('<dl/>');
     $(repos).each(function() {                                                          
 			var lastPush = new Date(this.pushed_at).format("dd/mm/yyyy hh:nn")
-      list.append('<dt><a href="'+ this.url +'">' + this.name + '</a></dt>');
+      list.append('<dt><a target="blank" href="'+ this.url +'">' + this.name + '</a></dt>');
 
 			var description = this.description;
 			if (description == undefined || description == 0) {
