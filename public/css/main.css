@@ -214,9 +214,15 @@ h1, h2 {
 
 .foto img {
 	border: 1px solid #999999;
+}         
+
+#github_projects {
+	text-align: left;
 }
 
-
+.tweet_post {
+	margin-left: 20px;
+}
 
 
 

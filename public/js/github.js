@@ -1,45 +1,45 @@
-var github = {
-	
-	getUrl: function() {
-		return "http://github.com/tulios.atom";
-	},
-	
-	getFeedXml: function() {
-		$.ajax({
-			type: "GET",
-			url: github.getUrl(),
-			beforeSend: function() {
-				$("#loader").show();
-			},
-			success: function(data) {
-				var array = github.getFeedArray(data);
-				$("#loader").hide();
-				var ul = $("<ul></ul>");
-				$(array).each(function(){
-					$("<li>" + this[0] + "<br/>" + this[1] + "</li>").appendTo(ul);
-				});
-				$("#github_feed").html(ul);
-			}
-		});
-	},
-	
-	getFeedArray: function(xml) {
-		var array = new Array();
-		$(xml).find("entry").each(function(){
-			array.push(
-				new Array(
-					this.find("title").text(),
-					this.find("content").text()
-				)
-			);
-		});
-		return array;
-	}
-	
+jQuery.githubUser = function(username, callback) {
+  jQuery.getJSON("http://github.com/api/v1/json/" + username + "?callback=?", callback);
 }
+ 
+jQuery.fn.loadRepositories = function(username) {
+  var target = this; 
+  $.githubUser(username, function(data) {
+    var repos = data.user.repositories;
+    //sortByNumberOfWatchers(repos);
+    sortByLastPushedDateDesc(repos);
+		
+    var list = $('<dl/>');
+    $(repos).each(function() {                                                          
+			var lastPush = new Date(this.pushed_at).format("dd/mm/yyyy hh:nn")
+      list.append('<dt><a href="'+ this.url +'">' + this.name + '</a></dt>');
+
+			var description = this.description;
+			if (description == undefined || description == 0) {
+				description = "<em>Sem descrição</em>";
+			}
+
+      list.append('<dd><small><em title="último commit">'+lastPush+'</em><br/>' + description + '</small></dd>');
+    });
+		$("#loader").hide();
+    target.empty().append(list);
+  });
+ 
+  function sortByNumberOfWatchers(repos) {
+    repos.sort(function(a,b) {
+      return b.watchers - a.watchers;
+    });
+  }
+
+	function sortByLastPushedDateDesc(repos) {
+		repos.sort(function(a, b) {
+			if (a.pushed_at > b.pushed_at) return -1;
+			if (a.pushed_at < b.pushed_at) return 1;
+			return 0;
+		});
+	}
+};
 
 jQuery(document).ready(function(){
-	 
-	github.getFeedXml();
-	
+	$("#github_projects").loadRepositories("tulios");
 });
