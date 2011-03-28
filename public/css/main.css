@@ -3,18 +3,21 @@ body img {
 	border: none;
 }
 body {
-  font-family: 'Baskerville', Georgia, Times, serif;
+/*  font-family: 'Baskerville', Georgia, Times, serif;*/
+	font-family: "Minion Pro", "Palatino", "Hoefler Text", "Times New Roman", serif;;
   font-size: 20px;
   line-height: 30px;
   padding: 0px 15px;
-  width: 100%;
+  width: 98%;
 }
 
 header, footer, section, article {
 	display: block;
 }
+
 #content {
 }
+
 #by {
 	font-style: italic;
   margin-right: 5px;
@@ -29,11 +32,14 @@ header, footer, section, article {
 	color: #b53131;
 }
 .date {
-  font-style: italic;
-  float: right;
+/*  font-style: italic;*/
   line-height: 43px;
-  margin-right: 20px;
 	margin-top: -3px;
+	
+	font-family: "American Typewriter", Monaco, Courier, monospace;
+	color: #777;
+	font-size: 90%;
+	display: inline-block;
 }
 a {
   color: #b83000;
@@ -86,7 +92,7 @@ body > header {
 	line-height: 180px;
 	margin-bottom: 20px;
 }
-h2, h3, h4 {
+h3, h4 {
   display: inline;
   margin: 0;
   font-weight: 600;
@@ -111,8 +117,15 @@ body > footer {
   font-size: 18px;
   color: #888;
 }
+      
+h2 {
+	margin: 0px;
+	margin-bottom: 0.7em;
+	font-size: 1.5em !important;
+	border: none !important;
+}
 
-h1 {
+h1, h2 {
 	font: 300 2.4em "Museo", "Cochin", Georgia, "Times New Roman", serif;
 	border-left: 30px solid #B3C1CD;
 	padding-left: 10px;
@@ -143,6 +156,10 @@ h1 {
 }
 
 .sobre {
+	background-position: -48px -960px;
+}
+
+.archives {
 	background-position: -240px -864px;
 }
 
@@ -152,6 +169,10 @@ h1 {
 
 .github {
 	background-position: -240px -480px;
+}
+
+.feed {
+	background-position: -240px -288px;
 }
 
 #menu {
@@ -171,16 +192,29 @@ h1 {
 	clear: both;
 }
 
+.separador {
+	margin: 0px 10px;
+}
 
+.subtext {
+	margin-top: -1.2em;
+	margin-bottom: 2em;
+	color: #666;
+	font-style: italic;
+	font-variant: small-caps;
+}
 
+.content {
+	margin-top: 10px;
+}
 
+.archive_list {
+	margin-left: -35px;
+}
 
-
-
-
-
-
-
+.foto img {
+	border: 1px solid #999999;
+}
 
 
 

@@ -1,7 +1,15 @@
 <article class="post">
   <header>
     <h2><%= title %></h2>
-    <span class="date"><%= date %></span>
+    <p class="subtext">
+      Por 
+      <% if author == @config[:author] %>
+        <a href="/about/"><%= author %></a>
+      <% else %>
+        <b><%= author %></b>
+      <% end %>
+       em <b><%= date %></b>
+    </p>
   </header>
 
   <section class="content">
