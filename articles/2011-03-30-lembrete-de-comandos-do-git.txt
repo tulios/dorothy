@@ -3,16 +3,15 @@ title: lembrete de comandos do git
 date: 30/03/2011
 
 Revertendo um arquivo:  
-
 <code class="bash">
-  git checkout <path/do/arquivo>
+  git checkout path_do_arquivo
 </code>
 ~
   
 Registrando só para não esquecer mais.  
 Criando uma tag no git:  
 <code class="bash">
-  git tag <nome da tag> -a
+  git tag nome_da_tag -a
 </code>
   
 Realizando o push da tag criada:  
@@ -22,27 +21,27 @@ Realizando o push da tag criada:
   
 Apagando uma tag:  
 <code class="bash">
-  git tag -d <nome da tag>
+  git tag -d nome_da_tag
 </code>
   
 Realizando o push da exclusão:  
 <code class="bash">  
-  git push origin :refs/tags/<nome da tag>
+  git push origin :refs/tags/ nome_da_tag
 </code>
   
 Criando um branch a partir de uma tag:  
 <code class="bash">
-  git checkout <nome da tag> -b <nome do branch>
+  git checkout nome_da_tag -b nome_do_branch
 </code>
   
 Mudando entre os branchs:  
 <code class="bash">
-  git checkout <nome do branch>
+  git checkout nome_do_branch
 </code>
 
 Adicionando novos servidores para puch (novos remote):  
 <code class="bash">
-  git remote add <nome do remote> <endereço do git. ex: git@github.com:tulios/proxy_machine.git>
+  git remote add nome_do_remote (endereço do git. ex: git@github.com:tulios/proxy_machine.git)
 </code>  
   
 Então é isso, se eu lembrar de mais algum que fuja da memória eu posto aqui.  
