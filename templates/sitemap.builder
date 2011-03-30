@@ -1,12 +1,20 @@
 xml.instruct!
-xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
+xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9",
+            "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
+             "xsi:schemaLocation" => "http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" do
   
   ["/", "/about", "/archives"].each do |page|
-    xml.url { xml.loc @config[:url] + "#{page}" }
+    xml.url { 
+      xml.loc @config[:url] + "#{page}"
+      xml.changefreq "daily"
+    }
   end
   
   @articles.each do |article|
-    xml.url { xml.loc article.url }
+    xml.url { 
+      xml.loc article.url 
+      xml.changefreq "daily"
+    }
   end
   
 end
