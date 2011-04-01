@@ -2,13 +2,13 @@
 title: lembrete de comandos do git
 date: 30/03/2011
 
+Registrando só para não esquecer mais.  
+~
 Revertendo um arquivo:  
 <code class="bash">
   git checkout path_do_arquivo
 </code>
-~
   
-Registrando só para não esquecer mais.  
 Criando uma tag no git:  
 <code class="bash">
   git tag nome_da_tag -a
