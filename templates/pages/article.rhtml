@@ -17,24 +17,26 @@
   <section class="content">
     <%= body %>
   </section>
-  
-  <span class="tweet_post">
-    <a href="http://twitter.com/share" 
-       class="twitter-share-button" 
-       data-count="none" 
-       data-via="tulios">Tweet</a>
-  </span>
-  <span class="facebook_like">
-  </span>
 
-  <section class="comments">
-    <% if @config[:disqus] %>
-      <div id="disqus_thread"></div>
-      <script type="text/javascript" src="http://disqus.com/forums/<%= @config[:disqus] %>/embed.js"> </script>
-      <noscript><a href="http://<%= @config[:disqus] %>.disqus.com/?url=ref">View the discussion thread.</a></noscript>
-      <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-    <% end %>
-  </section>
+  <% if ENV['RACK_ENV'] == 'production' %>
+    <span class="tweet_post">
+      <a href="http://twitter.com/share" 
+         class="twitter-share-button" 
+         data-count="none" 
+         data-via="tulios">Tweet</a>
+    </span>
+    <span class="facebook_like"></span>
+  
+    <section class="comments">
+      <% if @config[:disqus] %>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript" src="http://disqus.com/forums/<%= @config[:disqus] %>/embed.js"> </script>
+        <noscript><a href="http://<%= @config[:disqus] %>.disqus.com/?url=ref">View the discussion thread.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+      <% end %>
+    </section>
+  <% end %>
+  
 </article>
 
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
