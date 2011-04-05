@@ -10,16 +10,20 @@ jQuery.fn.loadRepositories = function(username) {
     sortByLastPushedDateDesc(repos);
 		
     var list = $('<dl/>');
-    $(repos).each(function() {                                                          
-			var lastPush = new Date(this.pushed_at).format("dd/mm/yyyy hh:nn")
-      list.append('<dt><a target="blank" href="'+ this.url +'">' + this.name + '</a></dt>');
+    $(repos).each(function() {     
+	    if (!this.private) {
 
-			var description = this.description;
-			if (description == undefined || description == 0) {
-				description = "<em>Sem descrição</em>";
+				var lastPush = new Date(this.pushed_at).format("dd/mm/yyyy hh:nn")
+	      list.append('<dt><a target="blank" href="'+ this.url +'">' + this.name + '</a></dt>');
+
+				var description = this.description;
+				if (description == undefined || description == 0) {
+					description = "<em>Sem descrição</em>";
+				}
+
+	      list.append('<dd><small><em title="último commit">'+lastPush+'</em><br/>' + description + '</small></dd>');
+			
 			}
-
-      list.append('<dd><small><em title="último commit">'+lastPush+'</em><br/>' + description + '</small></dd>');
     });
 		$("#loader").hide();
     target.empty().append(list);

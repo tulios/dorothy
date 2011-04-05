@@ -2,10 +2,10 @@
 title: Conhecendo o JRuby
 date: 03/04/2011
 
-Com o desenvolvimento do **RailsPortlet** eu falei um bocado sobre [JRuby][jruby] e o mundo Java + Ruby, vou tentar resumir as diferenças e possibilidades dessa tecnologia nesse post.
+Com o desenvolvimento do **RailsPortlet** eu falei um bocado sobre JRuby e o mundo Java + Ruby, vou tentar resumir as diferenças e possibilidades dessa tecnologia nesse post.
 ~
 
-O JRuby é o Ruby 100% implementado em Java, ele se utiliza do melhor da JVM: alta performance, threads reais, um belo conjunto de frameworks e portabilidade, tudo isso utilizando a sintaxe e o "jeito" Ruby de se fazer as coisas. Preciso falar mais alguma coisa? Isso é incrível, a JVM e a linguagem Java já possuem mais de 10 anos de mercado, são tecnologias totalmente consolidadas. O que [Charles Nutter][nutter] e os desenvolvedores do JRuby fizeram foi "atualizar" a linguagem mantendo a infraestrutura.  
+O [JRuby][jruby] é o Ruby 100% implementado em Java, ele se utiliza do melhor da JVM: alta performance, threads reais, um belo conjunto de frameworks e portabilidade, tudo isso utilizando a sintaxe e o "jeito" Ruby de se fazer as coisas. Preciso falar mais alguma coisa? Isso é incrível, a JVM e a linguagem Java já possuem mais de 10 anos de mercado, são tecnologias totalmente consolidadas. O que [Charles Nutter][nutter] e os desenvolvedores do JRuby fizeram foi "atualizar" a linguagem mantendo a infraestrutura.  
 
 Chega de papo e vamos ver como isso funciona. Podemos instalar o JRuby baixando um .tar (ou .zip) direto do [site oficial][jruby_download], extraí-lo em algum lugar e adicionar a pasta bin ao path. Feito isso faça o seguinte teste:
 <pre>

@@ -5,46 +5,72 @@ date: 30/03/2011
 Registrando só para não esquecer mais.  
 ~
 Revertendo um arquivo:  
-<code class="bash">
-  git checkout path_do_arquivo
-</code>
+<pre>
+  <code class="bash">
+    git checkout path_do_arquivo
+  </code>
+</pre>
   
 Criando uma tag no git:  
-<code class="bash">
-  git tag nome_da_tag -a
-</code>
+<pre>
+  <code class="bash">
+    git tag nome_da_tag -a
+  </code>
+</pre>
   
 Realizando o push da tag criada:  
-<code class="bash">
-  git push --tags
-</code>
+<pre>
+  <code class="bash">
+    git push --tags
+  </code>
+</pre>
   
 Apagando uma tag:  
-<code class="bash">
-  git tag -d nome_da_tag
-</code>
+<pre>
+  <code class="bash">
+    git tag -d nome_da_tag
+  </code>
+</pre>
   
 Realizando o push da exclusão:  
-<code class="bash">
-  git push origin :refs/tags/nome_da_tag
-</code>
+<pre>
+  <code class="bash">
+    git push origin :refs/tags/nome_da_tag
+  </code>
+</pre>
   
 Criando um branch a partir de uma tag:  
-<code class="bash">
-  git checkout nome_da_tag -b nome_do_branch
-</code>
+<pre>
+  <code class="bash">
+    git checkout nome_da_tag -b nome_do_branch
+  </code>
+</pre>
   
 Mudando entre os branchs:  
-<code class="bash">
-  git checkout nome_do_branch
-</code>
+<pre>
+  <code class="bash">
+    git checkout nome_do_branch
+  </code>
+</pre>
 
 Adicionando novos servidores para puch (novos remote):  
-<code class="bash">
-  git remote add nome_do_remote (endereço do git. ex: git@github.com:tulios/proxy_machine.git)
-</code>  
-  
+<pre>
+  <code class="bash">
+    git remote add nome_do_remote
+    # git remote add git@github.com:tulios/proxy_machine.git
+  </code>  
+</pre>
+
 Então é isso, se eu lembrar de mais algum que fuja da memória eu posto aqui.  
 o/  
+
+**Edit** 05/04/2011:  
+Verificando diferença entre arquivo de revisão anterior:
+<pre>
+  <code class="bash">
+    git diff hash -- path_do_arquivo
+    # git diff e830f78fe0453ede767232c419f9baece7b8521d -- spec/proxy_spec.rb
+  </code>
+</pre>  
   
 
