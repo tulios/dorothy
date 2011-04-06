@@ -72,5 +72,13 @@ Verificando diferença entre arquivo de revisão anterior:
     # git diff e830f78fe0453ede767232c419f9baece7b8521d -- spec/proxy_spec.rb
   </code>
 </pre>  
-  
 
+**Edit** 06/04/2011:
+Visualizar os logs com uma visualização melhor:
+<pre>
+  <code class="bash">
+    git log --oneline
+    # dc58ca1 corrigindo problema de seguranca relacionado XSS no lado cliente
+    # 771a100 consertando bug de js que ocorria no ie 8
+  </code>
+</pre>  
