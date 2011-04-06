@@ -73,7 +73,7 @@ Verificando diferença entre arquivo de revisão anterior:
   </code>
 </pre>  
 
-**Edit** 06/04/2011:
+**Edit** 06/04/2011:  
 Visualizar os logs com uma visualização melhor:
 <pre>
   <code class="bash">
