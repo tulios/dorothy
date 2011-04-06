@@ -74,7 +74,7 @@ Verificando diferença entre arquivo de revisão anterior:
 </pre>  
 
 **Edit** 06/04/2011:  
-Visualizar os logs com uma visualização melhor:
+Visualizar os logs com um formato melhor:
 <pre>
   <code class="bash">
     git log --oneline
