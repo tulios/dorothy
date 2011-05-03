@@ -1,0 +1,21 @@
+--- 
+title: Instalando a gem pg 0.10.1
+date: 11/04/2011
+
+Fui atualizar a gem pg da 0.10.0 para 0.10.1 e recebi um erro relacionado a **libpq**
+~  
+
+Essa gema do postgresql sempre causa problemas, para resolver no MAC OS X faça:
+
+<pre>
+  <code class="bash">
+    sudo su
+
+    env ARCHFLAGS="-arch x86_64" gem install pg
+  </code>
+</pre>  
+
+Referência:  
+[http://www.uponmyshoulder.com/blog/2011/cant-find-the-postgresql-client-library-libpq/][referencia]
+                                                                                      
+  [referencia]: http://www.uponmyshoulder.com/blog/2011/cant-find-the-postgresql-client-library-libpq/
