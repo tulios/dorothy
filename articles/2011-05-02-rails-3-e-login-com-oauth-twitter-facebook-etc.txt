@@ -1,0 +1,157 @@
+--- 
+title: Rails 3 e login com oauth (twitter, facebook, etc)
+date: 02/05/2011
+
+Uma das coisas mais legais de hoje em dia é utilizar serviços na nuvem para reduzir algumas complicações e problemas nas nossas aplicações, por exemplo, armazer os arquivos no S3 da Amazon evitando o gerenciamento de disco e etc.  
+~
+
+Várias aplicações estão utilizando serviços como [Twitter][twitter] e [Facebook][facebook] para interagir com seus usuários. As duas plataformas trabalham com um sistema de autenticação chamado de [OAuth][oauth], que de acordo com a Wikipedia é um padrão aberto para autenticação, que permite aos usuários compartilharem seus recursos privados com outro site sem informar suas credenciais (usuário e senha). Vamos criar uma aplicação em Rails 3 que permita login via twitter e facebook.  
+
+Primeiro passo, vamos criar a aplicação:  
+
+<pre>
+  <code class="bash">
+    rails new oauth-login
+  </code>
+</pre>  
+
+Feito isso, vamos adicionar ao nosso **Gemfile** a gema [omniauth][omniauth]. Essa gema permite gerenciar vários provedores de autenticação.  
+
+<pre>
+  <code class="ruby">
+    gem 'omniauth', '~> 0.2.5'
+  </code>
+</pre>  
+
+Na sequência, peça para o bundler instalar a gema:  
+
+<pre>
+  <code class="bash">
+    bundle install
+  </code>
+</pre>  
+
+Antes de configurar o ominiauth é preciso cadastrar a sua aplicação no provider desejado, por exemplo, no twitter. Para isso acesse (logado é claro) [dev.twitter.com][dev_twitter] e clique em "Your Apps" e registre a sua aplicação. No campo "callback url" coloque **http://127.0.0.1:3000/auth/twitter/callback**, utilizaremos 127.0.0.1 para o login funcionar localmente, depois será necessário colocar outras urls apontando para os domínios corretos da sua aplicação. Em "OAuth 1.0a settings" copie a **consumer key** e a **consumer secret**.  
+
+Agora crie um arquivo chamado **omniauth.rb** em **config/initializers/** e adicione o código abaixo trocando 'CONSUMER_KEY' e 'CONSUMER_SECRET' pelas chaves copiadas. Para uma lista dos provedores suportados acesse a wiki [Omniauth Strategies][omniauth_strategies].  
+
+<pre>
+  <code class="ruby">
+    Rails.application.config.middleware.use OmniAuth::Builder do
+      provider OmniAuth::Strategies::Twitter, 'CONSUMER_KEY', 'CONSUMER_SECRET'
+      # provider OmniAuth::Strategies::Facebook, ...
+      # provider OmniAuth::Strategies::Linkedin, ...
+      # provider OmniAuth::Strategies::GitHub, ...
+    end
+  </code>
+</pre>  
+
+Com a gema configurada vamos criar um controller chamado **sessions_controller.rb** para gerenciar o login/logout e vamos  mapeá-lo da seguinte forma no **config/routes.rb**:  
+
+<pre>
+  <code class="ruby">
+    match '/auth/:provider/callback' => 'sessions#create'
+    match '/auth/failure' => 'sessions#failure'
+    match '/logout' => 'sessions#destroy'
+  </code>
+</pre>  
+
+Note que a url de callback é a mesma configurada no twitter, com o detalhe do provider ser um parâmetro. A gema vai orquestrar a conversa entre a nossa aplicação e o provedor de autenticação, e a coisa toda vai funcionar assim:  
+![oauth_login]  
+
+Minha proposta para nossa aplicação é a seguinte:  
+![diagrama_usuario]  
+
+Vamos criar os 2 modelos e suas respectivas migrações. Uma vez que isso tenha sido feito vamos voltar ao nosso **SessionsController** e implementar de fato o login/logout. No método create faça:  
+
+<pre>
+  <code class="ruby">
+    def create    
+      auth = request.env['omniauth.auth']
+      authentication = Authentication.find_by_provider_and_uid(auth['provider'], auth['uid'])
+
+      unless authentication
+        user = User.new :name => auth['user_info']['name'], :nickname => auth['user_info']['nickname']                                                   
+        user.authentications.build(
+          :provider => auth['provider'],
+          :uid => auth['uid'],
+          :image => auth['user_info']['image'],
+          :oauth_token => auth['credentials']['token'],
+          :oauth_token_secret => auth['credentials']['secret']
+        )
+        user.save!
+      else
+        user = authentication.user
+      end
+
+      session[:user_id] = user.id
+      redirect_to root_path
+    end
+  </code>
+</pre>  
+  
+Note que não estamos utilizando nenhuma gema para fazer a autenticação (ex: devise, authlogic, etc) nem tratando algum possível erro ao salvar o usuário, o intuito é aprender a gerenciar o login. O método create somente será chamado caso o provedor autentique o usuário. A variável **omniauth.auth** do rack irá retornar um hash com vários atributos, para mais informações sobre quais atributos são retornados acesse a wiki [Auth Hash Schema][omniauth_hash].  
+
+Na sequência vamos criar o logout e a action que irá tratar erros no processo de autorização, por exemplo, o usuário não aceitar que a aplicação receba seus dados. Não vou tratar a falha, pois não é o intuito desse post.
+
+<pre>
+  <code class="ruby">
+    def destroy
+      session[:user_id] = nil
+      redirect_to root_path
+    end
+
+    def failure
+    end
+  </code>
+</pre>
+
+O próximo passo é adicionar o link de login e logout na tela, e tenho quase certeza que você vai querer utilizar um dos [ícones][social_signin_buttons_icons] criados pela galera da resumelink.
+
+<pre>
+  <code class="ruby">
+    <%= link_to 'Login With Twitter', '/auth/twitter' %>
+    <%= link_to 'Logout', logout_path %>
+  </code>
+</pre>
+
+Como testar? Basicamente vamos utilizar um mock para **request.env['omniauth.auth']** retornando um hash preparado para o teste, podemos também configurar a gema para o modo teste de acordo com a wiki [Integration Testing][omniauth_test].  
+
+Esse assunto não se esgota aqui, o próximo passo seria integrar esse processo a uma gema de autenticação.  
+o/  
+
+Referência:  
+[http://railscasts.com/episodes/236-omniauth-part-2][ref]
+
+  [twitter]: http://twitter.com "Twitter"
+  [facebook]: http://facebook.com "Facebook"
+  [oauth]: http://en.wikipedia.org/wiki/OAuth "OAuth"
+  [omniauth]: https://rubygems.org/gems/omniauth "omniauth"
+  [omniauth_strategies]: http://intridea.github.com/omniauth/OmniAuth/Strategies.html "Omniauth Strategies"
+  [omniauth_hash]: https://github.com/intridea/omniauth/wiki/Auth-Hash-Schema "Omniauth Hash"
+  [omniauth_test]: https://github.com/intridea/omniauth/wiki/Integration-Testing "Omniauth Test"
+  [dev_twitter]: http://dev.twitter.com/ "Dev Twitter"
+  [social_signin_buttons_icons]: http://resumelink.org/images/icons/ "Social Signin Buttons"
+  [ref]: http://railscasts.com/episodes/236-omniauth-part-2 "Rails Casts"
+  [oauth_login]: /images/articles/2011-05-02-img1.png "Diagrama de sequência do OAuth Login"
+  [diagrama_usuario]: /images/articles/2011-05-02-img2.png "Diagrama de classe"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

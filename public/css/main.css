@@ -135,7 +135,7 @@ h1, h2 {
 	font: 300 2.4em "Museo", "Cochin", Georgia, "Times New Roman", serif;
 	border-left: 30px solid #B3C1CD;
 	padding-left: 10px;
-	margin-left: -40px;
+	margin-left: -10px;
 	text-shadow: rgba(28, 73, 115, .7) 0 0 4px;
 	clear: both;
 }
