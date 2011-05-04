@@ -56,8 +56,8 @@ Mudando entre os branchs:
 Adicionando novos servidores para puch (novos remote):  
 <pre>
   <code class="bash">
-    git remote add nome_do_remote
-    # git remote add git@github.com:tulios/proxy_machine.git
+    git remote add nome_do_remote endereco_do_remote
+    # git remote add origin git@github.com:tulios/proxy_machine.git
   </code>  
 </pre>
 
